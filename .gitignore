@@ -1,0 +1,22 @@
+# Root level - keep index.html and images for reference
+# Only ignore the dist folder at root (if any)
+dist/
+
+# Node modules at root (if any)
+node_modules/
+
+# Environment files
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Temporary
+*.tmp
+*.temp
