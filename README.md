@@ -6,31 +6,55 @@ A modern React application featuring WebGL terrain rendering with smooth scroll 
 
 ```
 .
-├── index.html                          # Root reference (WebGL demo)
-├── images/                             # Reference images
-├── adaline-app/                        # Main React application
-│   ├── app/
-│   │   ├── src/
-│   │   │   ├── components/             # React components (Navbar, Footer, UI)
-│   │   │   ├── sections/               # Page sections (Hero, Features, etc.)
-│   │   │   ├── pages/                  # Page components (HomePage, etc.)
-│   │   │   ├── hooks/                  # Custom hooks (WebGL shaders)
-│   │   │   ├── lib/                    # Utilities
-│   │   │   ├── App.tsx                 # Main app component
-│   │   │   └── main.tsx                # Entry point
-│   │   ├── public/                     # Static assets
-│   │   ├── dist/                       # Production build (generated)
-│   │   ├── package.json
-│   │   ├── tsconfig.json
-│   │   ├── vite.config.ts
-│   │   ├── tailwind.config.js
-│   │   ├── postcss.config.js
-│   │   ├── vercel.json
-│   │   └── .gitignore
-├── .gitignore                          # Git ignore rules
-└── README.md                           # This file
+├── src/
+│   ├── components/             # React components (Navbar, Footer, UI)
+│   ├── sections/               # Page sections (Hero, Features, etc.)
+│   ├── pages/                  # Page components (HomePage, etc.)
+│   ├── hooks/                  # Custom hooks (WebGL shaders)
+│   ├── lib/                    # Utilities
+│   ├── App.tsx                 # Main app component
+│   └── main.tsx                # Entry point
+├── public/                     # Static assets (images, videos)
+├── dist/                       # Production build (generated)
+├── index.html                  # HTML entry point
+├── package.json
+├── tsconfig.json
+├── vite.config.ts
+├── tailwind.config.js
+├── postcss.config.js
+├── vercel.json
+└── README.md                   # This file
 ```
 
+## Local Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start dev server (http://localhost:5173)
+npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
+```
+
+## Features
+
+- ✅ WebGL terrain rendering with smooth animations
+- ✅ Scroll-based camera movement
+- ✅ Responsive navbar with dropdown menu
+- ✅ Features section with interactive UI
+- ✅ Statistics and testimonials
+- ✅ Blog/library section
+- ✅ CTA section with gradient background
+- ✅ Footer with underwater imagery
+- ✅ Video player with mountain animation
+- ✅ Optimized performance with throttled scroll events
+- ✅ Lazy loading for images
 
 ## Deployment on Vercel
 
@@ -57,43 +81,12 @@ git push -u origin main
 3. Import your GitHub repository
 4. **Configure Build Settings:**
    - **Framework Preset:** Vite
-   - **Root Directory:** `adaline-app/app`
+   - **Root Directory:** `.` (root)
    - **Build Command:** `npm run build`
    - **Output Directory:** `dist`
    - **Install Command:** `npm install`
 
 5. Click "Deploy"
-
-## Local Development
-
-```bash
-cd adaline-app/app
-
-# Install dependencies
-npm install
-
-# Start dev server (http://localhost:5173)
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
-```
-
-## Features
-
-- ✅ WebGL terrain rendering with smooth animations
-- ✅ Scroll-based camera movement
-- ✅ Responsive navbar with dropdown menu
-- ✅ Features section with interactive UI
-- ✅ Statistics and testimonials
-- ✅ Blog/library section
-- ✅ CTA section with gradient background
-- ✅ Footer with underwater imagery
-- ✅ Optimized performance with throttled scroll events
-- ✅ Lazy loading for images
 
 ## Performance Notes
 
