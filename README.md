@@ -1,6 +1,6 @@
 # Adaline.ai UI Replica
 
-This project is a high-fidelity frontend recreation of the **Adaline.ai** user interface. It focuses on implementing complex animations, responsive layouts, and interactive design elements using modern web technologies. This is a UI-only build, demonstrating advanced styling and motion capabilities.
+This project is a frontend recreation of the **Adaline.ai** user interface. It focuses on implementing animations, responsive layouts, and interactive design elements using modern web technologies. This is a UI-only build, demonstrating advanced styling and motion capabilities.
 
 ## 🚀 Tech Stack
 
