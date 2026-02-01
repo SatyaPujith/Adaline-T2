@@ -6,15 +6,10 @@ const LogoGiift = () => <span className="font-bold text-xl tracking-tight">Giift
 const LogoSerif = () => <span className="font-serif italic font-bold text-2xl">serif</span>;
 const LogoReforge = () => <span className="font-bold text-lg flex items-center gap-2"><span className="text-xl">⚡</span> Reforge</span>;
 const LogoDiscord = () => <span className="font-bold text-lg flex items-center gap-2"><span>👾</span> Discord</span>;
-const LogoSalesforce = () => <span className="font-bold text-lg flex items-center gap-2"><span>☁️</span> salesforce</span>;
-const LogoSimpleDocs = () => <span className="font-bold text-lg">SimpleDocs</span>;
-const LogoHubSpot = () => <span className="font-bold text-lg">HubSpot</span>;
 const LogoCoframe = () => <span className="font-bold text-lg flex items-center gap-2"><span>◆</span> Coframe</span>;
 const LogoJericho = () => <span className="font-bold text-lg flex items-center gap-2"><span>🛡️</span> Jericho Security</span>;
-const LogoStatflo = () => <span className="font-bold text-lg">STATFLO</span>;
-const LogoDoorDash = () => <span className="font-bold text-lg flex items-center gap-2"><span>🚗</span> DOORDASH</span>;
 const LogoMcKinsey = () => <span className="font-serif font-bold text-lg">McKinsey & Company</span>;
-const LogoDaybreak = () => <span className="font-bold text-lg">Daybreak ☀️</span>;
+
 
 
 // --- Types ---
