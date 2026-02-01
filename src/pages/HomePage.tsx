@@ -11,15 +11,14 @@ const HomePage = () => {
   return (
     <div className="bg-background">
       <Navbar />
-      
-      {/* Hero Section - Fixed background with mountains */}
-      <main style={{ minHeight: '600vh' }}>
+
+      {/* Hero Section - Standard Layout */}
+      <main>
         <HeroSection />
       </main>
-      
-      {/* Sections appear AFTER hero section scrolling is complete */}
-      {/* They are positioned absolutely so they don't interfere with hero section */}
-      <div className="relative z-20 bg-[#f5f2eb]" style={{ marginTop: '500vh' }}>
+
+      {/* Sections appear naturally after hero */}
+      <div className="relative bg-[#f5f2eb]">
         <div className="transition-all duration-500 ease-out">
           <FeaturesSection />
         </div>
@@ -36,7 +35,7 @@ const HomePage = () => {
           <CTASection />
         </div>
       </div>
-      
+
       <Footer />
     </div>
   );

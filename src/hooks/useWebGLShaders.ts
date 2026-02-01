@@ -128,7 +128,7 @@ float terrainH( in vec2 x ){
   float a = 0.0;
   float b = 1.0;
   vec2  d = vec2(0.0);
-  for( int i=0; i<15; i++ ){
+  for( int i=0; i<10; i++ ){
     vec3 n = noised(p);
     d += n.yz;
     a += b*n.x/(1.0+dot(d,d));
@@ -143,7 +143,7 @@ float terrainM( in vec2 x ){
   float a = 0.0;
   float b = 1.0;
   vec2  d = vec2(0.0);
-  for( int i=0; i<9; i++ ){
+  for( int i=0; i<6; i++ ){
     vec3 n = noised(p);
     d += n.yz;
     a += b*n.x/(1.0+dot(d,d));
@@ -157,7 +157,7 @@ float terrainL( in vec2 x ){
   float a = 0.0;
   float b = 1.0;
   vec2  d = vec2(0.0);
-  for( int i=0; i<7; i++ ){
+  for( int i=0; i<5; i++ ){
     vec3 n = noised(p);
     d += n.yz;
     a += b*n.x/(1.0+dot(d,d));
@@ -168,10 +168,10 @@ float terrainL( in vec2 x ){
 }
 float interesct( in vec3 ro, in vec3 rd, in float tmin, in float tmax ){
   float t = tmin;
-  for( int i=0; i<256; i++ ){
+  for( int i=0; i<128; i++ ){
     vec3 pos = ro + t*rd;
     float h = pos.y - terrainM( pos.xz );
-    if( h<(0.002*t) || t>tmax ) break;
+    if( h<(0.004*t) || t>tmax ) break;
     t += 0.5*h;
   }
   return t;
@@ -179,7 +179,7 @@ float interesct( in vec3 ro, in vec3 rd, in float tmin, in float tmax ){
 float softShadow(in vec3 ro, in vec3 rd ){
   float res = 1.0;
   float t = 0.001;
-  for( int i=0; i<80; i++ ){
+  for( int i=0; i<32; i++ ){
     vec3  p = ro + t*rd;
     float h = p.y - terrainM( p.xz );
     res = min( res, 16.0*h/t );

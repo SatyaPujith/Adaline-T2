@@ -73,7 +73,7 @@ const Navbar = () => {
         : 'bg-transparent'
         }`}
     >
-      <nav className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 relative">
+      <nav className="w-full px-4 sm:px-8 relative">
         <div className="flex items-center justify-between h-14 sm:h-16 relative z-50">
           {/* Left - Navigation Links - Hidden on mobile */}
           <div className="hidden sm:flex items-center space-x-6 lg:space-x-8 h-full">

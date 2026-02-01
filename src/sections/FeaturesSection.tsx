@@ -67,7 +67,6 @@ const features: FeatureStep[] = [
   },
 ];
 
-
 const FeaturesSection = () => {
   const [activeFeature, setActiveFeature] = useState(0);
   const [activeSubStep, setActiveSubStep] = useState(0);
@@ -79,7 +78,7 @@ const FeaturesSection = () => {
     offset: ['start start', 'end end'],
   });
 
-  // Auto-advance feature AND sub-step based on scroll
+  // Auto-advance feature AND sub-step based on scroll (Unified)
   useEffect(() => {
     const unsubscribe = scrollYProgress.on('change', (value) => {
       // Total steps = 4 features * 3 substeps = 12 segments
@@ -100,53 +99,15 @@ const FeaturesSection = () => {
   const currentFeature = features[activeFeature];
 
   return (
-    <div ref={containerRef} className="relative" style={{ height: 'auto' }}>
-      {/* Mobile: Vertical Stack */}
-      <div className="lg:hidden">
-        {features.map((feature) => (
-          <div key={feature.id} className="min-h-screen bg-white border-b border-border p-4 sm:p-6 flex flex-col justify-center">
-            {/* Step indicator */}
-            <div className="mb-6 flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#2D4A2D] text-white rounded-full flex items-center justify-center font-semibold text-sm">
-                {feature.stepNum}
-              </div>
-              <h3 className="text-lg font-semibold text-foreground">{feature.name}</h3>
-            </div>
-
-            {/* Title */}
-            <h2 className="text-2xl font-semibold text-foreground mb-3">
-              {feature.title}
-            </h2>
-
-            {/* Description */}
-            <p className="text-muted-foreground text-sm mb-8 leading-relaxed">
-              {feature.description}
-            </p>
-
-            {/* Sub-steps */}
-            <div className="space-y-4">
-              {feature.subSteps.map((subStep, subIndex) => (
-                <div key={subStep.title} className="border-l-2 border-[#2D4A2D] pl-4">
-                  <h4 className="font-semibold text-foreground text-sm mb-1">
-                    {subIndex + 1}. {subStep.title}
-                  </h4>
-                  <p className="text-muted-foreground text-xs leading-relaxed">
-                    {subStep.desc}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Desktop: Sticky Layout */}
-      <div className="hidden lg:block" style={{ height: '600vh' }}>
+    <div ref={containerRef} className="relative bg-white">
+      <div style={{ height: '600vh' }}>
         <div className="sticky top-0 h-screen bg-white overflow-hidden relative">
-          {/* Step Indicators & Tabs Header */}
-          <div className="absolute top-24 left-4 right-4 lg:left-12 lg:right-12 flex items-start justify-between z-20 pointer-events-none">
-            {/* Steps (Left) */}
-            <div className="flex items-start gap-4 pointer-events-auto overflow-x-auto no-scrollbar max-w-[70%]">
+
+          {/* Header Area */}
+          <div className="absolute top-24 sm:top-32 lg:top-24 left-4 right-4 lg:left-12 lg:right-12 flex items-center justify-between z-20 pointer-events-none">
+
+            {/* Desktop Steps (Left) - Hidden on Mobile */}
+            <div className="hidden lg:flex items-start gap-4 pointer-events-auto overflow-x-auto no-scrollbar max-w-[70%]">
               {features.map((feature, index) => {
                 const isActive = index === activeFeature;
                 return (
@@ -161,117 +122,25 @@ const FeaturesSection = () => {
                       : 'bg-transparent hover:bg-muted/30'
                       }`}
                   >
-                    {/* Custom Animated Icon */}
+                    {/* Icon */}
                     <div className="relative w-8 h-8 flex-shrink-0">
-                      <motion.svg
-                        width="32"
-                        height="32"
-                        viewBox="0 0 40 40"
-                        className={`${isActive ? 'text-[#2D4A2D]' : 'text-muted-foreground group-hover:text-foreground'}`}
-                        animate={isActive ? { rotate: 360 } : { rotate: 0 }}
-                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                      >
-                        {/* Iterate - Decagon */}
-                        {index === 0 && (
-                          <motion.path
-                            d="M20,2 L29.51,5.09 L35.39,13.18 L35.39,23.18 L29.51,31.27 L20,34.36 L10.49,31.27 L4.61,23.18 L4.61,13.18 L10.49,5.09 Z"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            strokeLinejoin="round"
-                            vectorEffect="non-scaling-stroke"
-                            transform="translate(0, 2)"
-                          />
-                        )}
-
-                        {/* Evaluate - Dashed Circle */}
-                        {index === 1 && (
-                          <circle
-                            cx="20"
-                            cy="20"
-                            r="18"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            strokeDasharray="4 4"
-                          />
-                        )}
-
-                        {/* Deploy - Segmented/Notched Circle */}
-                        {index === 2 && (
-                          <>
-                            <circle
-                              cx="20"
-                              cy="20"
-                              r="18"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                            />
-                            <motion.path
-                              d="M20 2 L20 10 M38 20 L30 20 M20 38 L20 30 M2 20 L10 20"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                            />
-                          </>
-                        )}
-
-                        {/* Monitor - Double Circle */}
-                        {index === 3 && (
-                          <>
-                            <circle
-                              cx="20"
-                              cy="20"
-                              r="18"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="1"
-                              strokeDasharray="4 4"
-                            />
-                            <circle
-                              cx="20"
-                              cy="20"
-                              r="13"
-                              fill="none"
-                              stroke="currentColor"
-                              strokeWidth="1.5"
-                            />
-                          </>
-                        )}
-                      </motion.svg>
-
-                      {/* Step Number in Center */}
+                      <FeatureIcon index={index} isActive={isActive} />
                       <div className="absolute inset-0 flex items-center justify-center">
                         <span className={`text-[9px] font-semibold ${isActive ? 'text-[#2D4A2D]' : 'text-muted-foreground'} bg-transparent px-1`}>
                           {feature.stepNum}
                         </span>
                       </div>
                     </div>
-
-                    {/* Text Content */}
+                    {/* Label */}
                     <div className={`flex flex-col items-start ${isActive ? 'min-w-[100px] flex-1 mr-2' : ''}`}>
                       <div className="flex items-center justify-between w-full gap-2">
-                        <span className={`text-sm font-medium ${isActive ? 'text-[#1a1a1a]' : 'text-muted-foreground/80'
-                          }`}>
-                          {feature.name}
-                        </span>
-
-                        {isActive && (
-                          <span className="text-[10px] text-muted-foreground tabular-nums">
-                            {activeSubStep + 1}/{feature.subSteps.length}
-                          </span>
-                        )}
+                        <span className={`text-sm font-medium ${isActive ? 'text-[#1a1a1a]' : 'text-muted-foreground/80'}`}>{feature.name}</span>
+                        {isActive && <span className="text-[10px] text-muted-foreground tabular-nums">{activeSubStep + 1}/{feature.subSteps.length}</span>}
                       </div>
-
-                      {/* Progress Bars */}
                       {isActive && (
                         <div className="flex gap-1 mt-1.5 w-full">
                           {feature.subSteps.map((_, i) => (
-                            <div
-                              key={i}
-                              className={`h-0.5 flex-1 rounded-full transition-colors duration-300 ${i <= activeSubStep ? 'bg-[#1a1a1a]' : 'bg-border'
-                                }`}
-                            />
+                            <div key={i} className={`h-0.5 flex-1 rounded-full transition-colors duration-300 ${i <= activeSubStep ? 'bg-[#1a1a1a]' : 'bg-border'}`} />
                           ))}
                         </div>
                       )}
@@ -281,7 +150,21 @@ const FeaturesSection = () => {
               })}
             </div>
 
-            {/* Tabs (Right) */}
+            {/* Mobile Header (Left) - Visible on Mobile */}
+            <div className="lg:hidden flex items-center gap-3 bg-white/90 backdrop-blur-sm p-1.5 pr-4 rounded-full border border-border shadow-sm pointer-events-auto">
+              <div className="relative w-8 h-8 flex-shrink-0">
+                <FeatureIcon index={activeFeature} isActive={true} />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="text-[9px] font-semibold text-[#2D4A2D]">{features[activeFeature].stepNum}</span>
+                </div>
+              </div>
+              <div className="flex flex-col leading-none">
+                <span className="text-xs font-bold text-[#1c1c1c]">{features[activeFeature].name}</span>
+                <span className="text-[10px] text-muted-foreground">{activeSubStep + 1} / {features[activeFeature].subSteps.length}</span>
+              </div>
+            </div>
+
+            {/* Tabs (Right) - Hidden on Mobile */}
             <div className="hidden lg:flex pointer-events-auto bg-muted/50 p-1 rounded-lg backdrop-blur-sm">
               {currentFeature.tabs.map((tab, index) => (
                 <button
@@ -298,50 +181,45 @@ const FeaturesSection = () => {
             </div>
           </div>
 
-          {/* Main Content */}
-          <div className="absolute top-28 sm:top-28 lg:top-52 left-4 sm:left-4 lg:left-12 right-4 sm:right-4 lg:right-12 bottom-4 sm:bottom-4 lg:bottom-12 grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-16 h-full">
-            {/* Left - Text Content */}
-            <div className="flex flex-col min-h-0 overflow-hidden pt-4">
-              {/* Title & Description */}
+          {/* Main Content Layout */}
+          <div className="absolute top-44 sm:top-52 lg:top-52 left-4 sm:left-4 lg:left-12 right-4 sm:right-4 lg:right-12 bottom-4 sm:bottom-4 lg:bottom-12 flex flex-col-reverse lg:grid lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-16 h-auto lg:h-auto inset-y-4 lg:inset-auto">
+
+            {/* Left - Text Content (Bottom on Mobile) */}
+            <div className="flex flex-col min-h-0 overflow-hidden pt-2 lg:pt-4 h-[50%] lg:h-auto">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentFeature.id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.4 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.3 }}
                   className="flex-shrink-0"
                 >
-                  <h2 className="text-sm sm:text-base lg:text-2xl font-medium text-foreground mb-1.5 sm:mb-2 lg:mb-3 leading-tight">
+                  <h2 className="text-lg sm:text-base lg:text-2xl font-medium text-foreground mb-1 sm:mb-2 lg:mb-3 leading-tight px-1">
                     {currentFeature.title}
                   </h2>
-                  <p className="text-muted-foreground text-[10px] sm:text-xs lg:text-sm mb-3 sm:mb-4 lg:mb-6 max-w-md line-clamp-2 sm:line-clamp-3 lg:line-clamp-none">
+                  <p className="text-muted-foreground text-xs sm:text-xs lg:text-sm mb-2 sm:mb-4 lg:mb-6 max-w-md line-clamp-2 sm:line-clamp-3 lg:line-clamp-none px-1">
                     {currentFeature.description}
                   </p>
                 </motion.div>
               </AnimatePresence>
 
-              {/* Sub-steps Accordion */}
-              <div className="space-y-0 flex-1 overflow-y-auto min-h-0">
+              <div className="space-y-0 flex-1 overflow-y-auto min-h-0 px-1 custom-scrollbar">
                 {currentFeature.subSteps.map((subStep, index) => (
                   <motion.div
                     key={subStep.title}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
                     className="border-t border-border"
                   >
                     <button
                       onClick={() => setActiveSubStep(index)}
                       className="w-full py-2 sm:py-2.5 lg:py-3 text-left group"
                     >
-                      <div className="flex items-start space-x-2 sm:space-x-2.5 lg:space-x-3">
-                        <span className="text-[9px] sm:text-xs lg:text-sm text-muted-foreground mt-0.5 flex-shrink-0">
+                      <div className="flex items-start space-x-2 sm:space-x-3">
+                        <span className={`text-[10px] sm:text-xs lg:text-sm mt-0.5 flex-shrink-0 transition-colors ${activeSubStep === index ? 'text-[#1c1c1c] font-bold' : 'text-muted-foreground'}`}>
                           {String(index + 1).padStart(2, '0')}
                         </span>
                         <div className="flex-1 min-w-0">
-                          <span className={`text-[10px] sm:text-xs lg:text-sm font-medium transition-colors block leading-tight ${activeSubStep === index ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'
-                            }`}>
+                          <span className={`text-xs sm:text-xs lg:text-sm font-medium transition-colors block leading-tight ${activeSubStep === index ? 'text-foreground' : 'text-muted-foreground group-hover:text-foreground'}`}>
                             {subStep.title}
                           </span>
                           <AnimatePresence>
@@ -350,8 +228,7 @@ const FeaturesSection = () => {
                                 initial={{ height: 0, opacity: 0 }}
                                 animate={{ height: 'auto', opacity: 1 }}
                                 exit={{ height: 0, opacity: 0 }}
-                                transition={{ duration: 0.3 }}
-                                className="text-[9px] sm:text-xs lg:text-sm text-muted-foreground mt-1 overflow-hidden leading-snug"
+                                className="text-[10px] sm:text-xs lg:text-sm text-muted-foreground mt-1 overflow-hidden leading-snug"
                               >
                                 {subStep.desc}
                               </motion.p>
@@ -365,20 +242,35 @@ const FeaturesSection = () => {
               </div>
             </div>
 
-            {/* Right - Visual Grid - Hidden on mobile */}
-            <div className="hidden lg:block relative w-full h-full" style={{ overflow: 'hidden' }}>
-              {/* Dashed Grid Background */}
-
-              {/* Feature Visualizations */}
+            {/* Right - Visual (Top on Mobile) */}
+            <div className="relative w-full h-[45%] lg:h-full lg:block" style={{ overflow: 'hidden' }}>
               <div className="absolute inset-0 overflow-hidden">
                 <FeatureVisuals activeFeature={activeFeature} activeSubStep={activeSubStep} />
               </div>
             </div>
+
           </div>
         </div>
       </div>
     </div>
   );
 };
+
+// Helper for Icons to reduce duplication
+const FeatureIcon = ({ index, isActive }: { index: number, isActive: boolean }) => (
+  <motion.svg
+    width="32"
+    height="32"
+    viewBox="0 0 40 40"
+    className={`${isActive ? 'text-[#2D4A2D]' : 'text-muted-foreground group-hover:text-foreground'}`}
+    animate={isActive ? { rotate: 360 } : { rotate: 0 }}
+    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+  >
+    {index === 0 && <path d="M20,2 L29.51,5.09 L35.39,13.18 L35.39,23.18 L29.51,31.27 L20,34.36 L10.49,31.27 L4.61,23.18 L4.61,13.18 L10.49,5.09 Z" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" vectorEffect="non-scaling-stroke" transform="translate(0, 2)" />}
+    {index === 1 && <circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 4" />}
+    {index === 2 && <g><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" strokeWidth="1.5" /><path d="M20 2 L20 10 M38 20 L30 20 M20 38 L20 30 M2 20 L10 20" stroke="currentColor" strokeWidth="1.5" /></g>}
+    {index === 3 && <g><circle cx="20" cy="20" r="18" fill="none" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4" /><circle cx="20" cy="20" r="13" fill="none" stroke="currentColor" strokeWidth="1.5" /></g>}
+  </motion.svg>
+);
 
 export default FeaturesSection;

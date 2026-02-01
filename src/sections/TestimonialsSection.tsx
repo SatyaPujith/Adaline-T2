@@ -73,39 +73,68 @@ const gridItems: TestimonialItem[] = [
 ];
 
 // --- Component ---
+// --- Derived Data for Random Actions ---
+// --- Derived Data for Random Actions ---
+// Initial base options from grid items
+const baseOptions = gridItems.map(item => item.hover);
+
+// Additional random options to expand the pool to 20+
+const extraOptions: CardContent[] = [
+  { type: 'quote', content: <div className="text-sm">"Significantly reduced our time to market."</div> },
+  { type: 'stat', content: <div className="text-center"><div className="text-4xl md:text-5xl font-medium mb-2">3x</div><div className="text-sm text-muted-foreground">Faster Deployment</div></div> },
+  { type: 'logo', content: <span className="font-bold text-xl">Loom</span> },
+  { type: 'quote', content: <div className="text-sm">"The observability features are best in class."</div> },
+  { type: 'stat', content: <div className="text-center"><div className="text-4xl md:text-5xl font-medium mb-2">99%</div><div className="text-sm text-muted-foreground">Reliability</div></div> },
+  { type: 'logo', content: <span className="font-bold text-xl">Retool</span> },
+  { type: 'quote', content: <div className="text-sm">"We can finally trust our LLM outputs."</div> },
+  { type: 'logo', content: <span className="font-bold text-xl">Zapier</span> },
+  { type: 'stat', content: <div className="text-center"><div className="text-4xl md:text-5xl font-medium mb-2">50%</div><div className="text-sm text-muted-foreground">Cost Reduction</div></div> },
+  { type: 'quote', content: <div className="text-sm">"Adaline's prompt management is a lifesaver."</div> },
+  { type: 'logo', content: <span className="font-bold text-xl">Vercel</span> },
+  { type: 'quote', content: <div className="text-sm">"Seamless integration with our existing stack."</div> },
+  { type: 'stat', content: <div className="text-center"><div className="text-4xl md:text-5xl font-medium mb-2">10k+</div><div className="text-sm text-muted-foreground">Prompts Tested</div></div> },
+  { type: 'logo', content: <span className="font-bold text-xl">Linear</span> },
+  { type: 'quote', content: <div className="text-sm">"The only platform that scales with our needs."</div> },
+  { type: 'stat', content: <div className="text-center"><div className="text-4xl md:text-5xl font-medium mb-2">24/7</div><div className="text-sm text-muted-foreground">Real-time Monitoring</div></div> },
+  { type: 'logo', content: <span className="font-bold text-xl">Notion</span> },
+  { type: 'quote', content: <div className="text-sm">"Evaluation metrics are extremely accurate."</div> },
+  { type: 'logo', content: <span className="font-bold text-xl">Scale AI</span> },
+  { type: 'stat', content: <div className="text-center"><div className="text-4xl md:text-5xl font-medium mb-2">0</div><div className="text-sm text-muted-foreground">Hallucinations</div></div> },
+  { type: 'quote', content: <div className="text-sm">"Customer support is incredibly responsive."</div> },
+  { type: 'logo', content: <span className="font-bold text-xl">Hugging Face</span> },
+];
+
+const allHoverOptions = [...baseOptions, ...extraOptions];
+
+// --- Component ---
 const TestimonialCard = ({ item }: { item: TestimonialItem }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [currentContent, setCurrentContent] = useState<CardContent>(item.default);
+  const [animationKey, setAnimationKey] = useState(0);
+
+  const handleMouseEnter = () => {
+    // Pick a random content from the pool
+    const randomIndex = Math.floor(Math.random() * allHoverOptions.length);
+    setCurrentContent(allHoverOptions[randomIndex]);
+    // Increment key to trigger Framer Motion exit/enter animation
+    setAnimationKey(prev => prev + 1);
+  };
 
   return (
     <div
       className="group relative h-64 sm:h-72 border-r border-b border-stone-200 border-dashed bg-[#fdfcf8] overflow-hidden cursor-default transition-colors"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={handleMouseEnter}
     >
       <AnimatePresence mode="wait">
-        {!isHovered ? (
-          <motion.div
-            key="default"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="absolute inset-0 flex items-center justify-center p-8 text-[#1c1c1c]"
-          >
-            {item.default.content}
-          </motion.div>
-        ) : (
-          <motion.div
-            key="hover"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-            className="absolute inset-0 flex items-center justify-center p-8 text-[#1c1c1c]"
-          >
-            {item.hover.content}
-          </motion.div>
-        )}
+        <motion.div
+          key={animationKey}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          transition={{ duration: 0.2 }}
+          className="absolute inset-0 flex items-center justify-center p-8 text-[#1c1c1c]"
+        >
+          {currentContent.content}
+        </motion.div>
       </AnimatePresence>
     </div>
   );
